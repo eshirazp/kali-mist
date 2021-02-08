@@ -84,7 +84,7 @@ function DateRow({ day, children }: { day: Day; children: any }) {
   );
 }
 
-/* Elush- created a fxn similar to `isClosed` for when its open 24/7 */
+/* Elush- created a fxn similar to `isClosed` for when its open all day */
 function OpenAllDay({ day }: { day: Day }) {
   return (
     <OpenWrapper data-testid={`${day}-open-all-day`}>Open 24 Hours</OpenWrapper>

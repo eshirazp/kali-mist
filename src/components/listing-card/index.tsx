@@ -34,7 +34,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-// Elush- Also made the listing card responsive as well with @media rules
+// Elush- Made the listing card responsive with @media rules
 const CardWrapper: StyledComponent<
   "div",
   any,
