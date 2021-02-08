@@ -15,13 +15,24 @@ export const AppHeader = styled.div`
   }
 `;
 
+/* Elush- I removed the margin-bottom to create a footer instead. Also gave
+ * a `background-color` for aesthetics.
+ */
 export const AppWrapper = styled.div`
-  margin-bottom: 20px;
   text-align: center;
+  background-color: #f2f5f5;
 `;
 
 export const AppContent = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 10px auto;
+  min-height: calc(100vh - 110px);
+`;
+
+/* Elush- I created an AppFooter just so it looks a bit better */
+export const AppFooter = styled.div`
+  height: 20px;
+  background-color: #00cdbe;
+  color: #fff;
 `;

@@ -8,7 +8,12 @@ export default function useLocationRegions() {
   if (values === EMPTY) {
     throw new Error("Component must be wrapped with <Container.Provider>");
   }
-  const { coords } = values;
+  // Elush- was not seeing isClosed, so changed coords to Los Angeles
+  // const { coords } = values;
+  const coords = {
+    latitude: 34.05,
+    longitude: -118.24,
+  };
   return useQuery(
     ["regions", coords],
     async () => {

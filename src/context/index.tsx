@@ -24,3 +24,5 @@ export function useGlobal(): Values {
 
 export const EMPTY: unique symbol = Symbol();
 export const GlobalContext = React.createContext<Values | typeof EMPTY>(EMPTY);
+// Elush- I create a context here to supply me the retailer type for routing
+export const RetailerTypeCtx = React.createContext("");

@@ -16,6 +16,12 @@ import Home from "./pages/";
 import Retailer from "./pages/retailer";
 import { useGlobal, GlobalContext } from "./context";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 const queryCache = new QueryCache();
 const GlobalStyle = createGlobalStyle`
@@ -27,14 +33,55 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+type IRoutes = {
+  path: string | string[];
+  exact: boolean;
+  component: JSX.Element;
+}[];
+
+/* Elush- I created an array of routes here so that it is easier to add
+ * routes through the lifetime of the app
+ */
+const routes: IRoutes = [
+  {
+    /* Elush- could not tell if you wanted retailerType to also be generic like
+     * :wmid, but that would have been path: "/:retailerType/:wmid", and I
+     * would desturcture and read it accordingly in retailer.tsx
+     */
+    path: "/(dispensaries|deliveries|doctors)/:wmid",
+    exact: true,
+    component: <Retailer />,
+  },
+  {
+    path: "/",
+    exact: true,
+    component: <Home />,
+  },
+];
+
 function ContextWrapper() {
   const globalValues = useGlobal();
   return (
     <GlobalContext.Provider value={globalValues}>
       <ReactQueryCacheProvider queryCache={queryCache}>
-        <GlobalStyle />
-        <Home />
-        <Retailer />
+        <Router>
+          <GlobalStyle />
+          <Switch>
+            {routes.map((route, idx) => (
+              <Route
+                key={idx}
+                path={route.path}
+                exact={route.exact}
+                children={route.component}
+              />
+            ))}
+            {/* Elush- I set a default redirect to / for unrecognized routes.
+             Ideal would have been an ideal 404 page but did not have time */}
+            <Route key={"default-redirect"}>
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </Router>
       </ReactQueryCacheProvider>
     </GlobalContext.Provider>
   );
